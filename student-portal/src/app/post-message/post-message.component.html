@@ -1,0 +1,201 @@
+<!-- <header class="position-relative pb-2">
+    <nav class="navbar navbar-expand-sm  fixed-top py-4">
+        <a class="navbar-brand" href="#"><img src="../../assets/images/logo2.png" class="img-fluid" width="135" height="96" /></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-nav mr-auto w-100">
+            <form class="mt-2 mt-md-0 ml-auto">
+                <img src="../../assets/images/ministry.png" class="img-fluid" width="135" height="96" />
+            </form>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto d-none">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+</header> -->
+<div class="container infobox mt-5">
+  <div class="d-flex bg-transparent pt-5">
+    <div class="mr-auto"><h5 class="card-title">student & courses</h5></div>
+    <div>
+      <a
+        href="javascript:void(0);"
+        (click)="openModal(addStudent)"
+        class="btn btn-primary mr-2"
+      >
+        Add Student
+      </a>
+    </div>
+    <div>
+      <a
+        href="javascript:void(0);"
+        (click)="openModal(addCourse)"
+        class="btn btn-success mr-2"
+      >
+        Add coruse
+      </a>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Student</th>
+                <th scope="col">Course Name</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let sdata of allData; let i = index">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ sdata.Student }}</td>
+                <td>{{ sdata.Courses }}</td>
+                <td>
+                  <a
+                    href="javascript:void(0);"
+                    type="button"
+                    (click)="delete(sdata.id)"
+                    class="btn btn-danger"
+                  >
+                    <i class="fa fa-trash"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <footer class="main-footer">
+    <p> &copy;2023جميع الحقوق محفوظة.</p>
+
+</footer> -->
+
+<ng-template
+  #addStudent
+  let-modal
+  class="modal fade"
+  aria-labelledby="addStudent"
+>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Add Student</h5>
+      <button
+        type="button"
+        class="close"
+        (click)="modal.dismiss()"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="StudentForm">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="form-group">
+              <label for="lname">Name </label>
+              <input
+                class="form-control"
+                id="name"
+                [class.is-invalid]="
+                  isFormSubmitted && StudentForm.get('name').invalid
+                "
+                formControlName="name"
+              />
+            </div>
+          </div>
+          <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+            <label for="mname">Course Selection</label>
+            <ng-multiselect-dropdown
+              [placeholder]="'Course'"
+              [settings]="dropdownSettings"
+              [data]="availableCourses"
+              formControlName="enrolledCourses"
+              [disabled]="false"
+              (onSelect)="onItemSelect($event)"
+              (onSelectAll)="onSelectAll($event)"
+            >
+            </ng-multiselect-dropdown>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <a
+        href="javascript:void(0);"
+        type="button"
+        class="btn btn-success"
+        (click)="AddStudent()"
+        >Add</a
+      >
+    </div>
+  </div>
+</ng-template>
+
+<ng-template
+  #addCourse
+  let-modal
+  class="modal fade"
+  aria-labelledby="addCourse"
+>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Add Course</h5>
+      <button
+        type="button"
+        class="close"
+        (click)="modal.dismiss()"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="CoruseForm">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="form-group">
+              <label for="lname">Name </label>
+              <input
+                class="form-control"
+                id="name"
+                [class.is-invalid]="
+                  isCoruseFormSubmitted && CoruseForm.get('name').invalid
+                "
+                formControlName="name"
+              />
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <a
+        href="javascript:void(0);"
+        type="button"
+        class="btn btn-success"
+        (click)="AddCourse()"
+        >Add</a
+      >
+    </div>
+  </div>
+</ng-template>

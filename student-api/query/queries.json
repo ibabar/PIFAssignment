@@ -1,0 +1,8 @@
+{
+    "getAllData" : "select s.id,s.name as [Student] , STRING_AGG(c.name, ', ') WITHIN GROUP (ORDER BY c.name) AS Courses from StudentCourses sc inner join Student s on sc.studentId = s.id inner join Course c on sc.courseId = c.id where s.isDeleted = 0 group by s.name,s.id",
+    "getAllCourses" : "SELECT * FROM [dbo].[Course]",
+    "addStudent" :"INSERT INTO [dbo].[Student] (name,isDeleted) VALUES (@name,@del) INSERT INTO [dbo].[StudentCourses] ([studentId],[courseId]) ",
+    "addCourse" :"INSERT INTO [dbo].[Course] (name,isDeleted) VALUES (@name,@del) ",
+    "deleteSudent" : "Update [dbo].[Student] set isDeleted=1 WHERE id = 27",
+    "updateUserDetails" : "UPDATE [dbo].[Student] SET isDeleted=1 WHERE id = @id"
+}
